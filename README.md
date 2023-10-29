@@ -1,46 +1,28 @@
-# Getting Started with Create React App
+### Summary
+I've interpreted the assessment as best I can here as there was some ambiguity (I do understand this may be a work in progress/part of the assesment).
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### API
 
-## Available Scripts
+I've a few recommendations for improving the api usability, quality and consistency;
+- 200 along with an empty array can be used for a successful query with no results, rather than a 400.
+- It should return 400 for malformed query (any status code beginning with 4 informs the client they can do something to fix the request, whereas 500 would imply a server error)
+- Wrapping the array of results with the count seems unnecessary unless it was alongside other pagination properties like offsets, page count, page number etc.
+- The `top` param has limited use cases to me unless combined with an offset param.
+- Countries endpoint `time_zone` => `time_zones`
+- Inconsistency with `is_dst` bool vs `dst` number
 
-In the project directory, you can run:
+And some more debatable preferences of mine:
+- For json results I'd use camel case rather than snake case
+- If needing different variants of results (e.g. one returning country name, and one not) I would achieve with different endpoints in order to keep concerns separate and make return values consistent with fewer toggles to limit unique paths through the system.
+  - E.g. instead of `api/timezones?inc=true` it might be: `api/timezones/summaries` (without country details) and `api/timezones/details` (with country details).
 
-### `npm start`
+### Assessment
+Recommendations for improving the assessment to make a few ACs clearer;
+- The User stories reference fields not relevant for the countries endpoints (e.g. tier, description, newest, oldest, numeric attribute).
+- I think the assessment could probably be condensed to need a little less time while still evidencing the same set of knowledge.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Overall I focussed on getting the code right and using the time as a good refresher for react rather than writing the tests. If I had a bit more time I would spend time on tests for each bit of functionality too.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Look forward to any feedback
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Sofia
